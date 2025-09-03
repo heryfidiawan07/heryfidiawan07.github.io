@@ -3,104 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullstack Developer Portfolio</title>
+    <title>Portfolio | Heri Fidiawan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #111827 0%, #374151 100%);
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #f3f4f6;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #a1a1aa, #e5e7eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         .project-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        .profile-img {
-            border: 5px solid rgba(255, 255, 255, 0.2);
-        }
+        /* .skill-bar {
+            transition: width 1.5s ease-in-out;
+        } */
     </style>
 </head>
-<body class="font-sans bg-gray-50">
+<body class="min-h-screen">
+    <script>AOS.init();</script>
+    <script>const { animate } = anime;</script>
+    
     <!-- Navigation -->
-    <nav class="bg-gray-900 shadow-sm fixed w-full z-10">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between h-16">
+    <nav class="fixed w-full bg-gray-900 bg-opacity-90 backdrop-blur-sm z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <span class="text-xl font-semibold text-white">DevPortfolio</span>
+                    <span class="text-xl font-bold gradient-text">PORTFOLIO</span>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="text-gray-300 hover:text-white transition">Home</a>
-                    <a href="#about" class="text-gray-300 hover:text-white transition">About</a>
-                    <a href="#projects" class="text-gray-300 hover:text-white transition">Projects</a>
-                    <a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#about" class="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition duration-300">About</a>
+                        <a href="#projects" class="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition duration-300">Projects</a>
+                    </div>
                 </div>
-                <div class="md:hidden flex items-center">
-                    <button class="outline-none">
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-300 hover:text-white focus:outline-none">
                         <i data-feather="menu"></i>
                     </button>
                 </div>
             </div>
         </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 border-t border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="text-gray-300 hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium transition duration-300">About</a>
+                <a href="#projects" class="text-gray-300 hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium transition duration-300">Projects</a>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="gradient-bg text-white pt-32 pb-20 px-4">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                     alt="Profile" 
-                     class="profile-img rounded-full w-48 h-48 object-cover mx-auto md:mx-0">
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-1/2 flex justify-center" data-aos="fade-up">
+                <div class="relative">
+                    <div class="w-64 h-64 md:w-80 md:h-80 mb-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full overflow-hidden border-4 border-gray-800 shadow-xl">
+                        <img src="images/fidiawan.jpg" alt="Heri Fidiawan" class="w-full h-full object-cover">
+                    </div>
+                </div>
             </div>
-            <div class="md:w-1/2 text-center md:text-left" data-aos="fade-left">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">John Doe</h1>
-                <h2 class="text-2xl md:text-3xl font-semibold mb-6">Fullstack Web Developer</h2>
-                <p class="text-lg mb-8 max-w-lg">Building exceptional digital experiences with modern technologies and clean code.</p>
+            <div class="md:w-1/2 mb-10 md:mb-0 text-center md:text-left" data-aos="fade-up">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Hi, I'm <span class="gradient-text">Heri Fidiawan</span></h1>
+                <h2 class="text-2xl md:text-3xl font-semibold text-gray-400 mb-4">Fullstack Developer</h2>
                 <div class="flex space-x-4 justify-center md:justify-start">
-                    <a href="#contact" class="bg-white text-indigo-600 px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition">Hire Me</a>
-                    <a href="#projects" class="border-2 border-white text-white px-6 py-2 rounded-full font-medium hover:bg-white hover:text-indigo-600 transition">Projects</a>
+                    <a href="https://github.com/heryfidiawan07" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
+                        <i data-feather="github" class="text-gray-300 w-5 h-5"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/heri-fidiawan-07" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
+                        <i data-feather="linkedin" class="text-gray-300 w-5 h-5"></i>
+                    </a>
+                    <a href="mailto:heryfidiawan07@gmail.com" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
+                        <i data-feather="mail" class="text-gray-300 w-5 h-5"></i>
+                    </a>
+                    <a href="https://wa.me/6282213173147" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
+                        <i data-feather="message-circle" class="text-gray-300 w-5 h-5"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 px-4 bg-gray-100">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-16" data-aos="fade-up">About Me</h2>
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
-                    <img src="https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                         alt="Working" 
-                         class="rounded-lg shadow-lg w-full max-w-md">
-                </div>
-                <div class="md:w-1/2 md:pl-12" data-aos="fade-left">
-                    <h3 class="text-2xl font-semibold mb-4">Who I Am</h3>
-                    <p class="text-gray-600 mb-6">I'm a passionate Fullstack Developer with 5+ years of experience building web applications. I specialize in JavaScript technologies across the whole stack (React, Node.js, Express, MongoDB).</p>
-                    
-                    <div class="mb-8">
-                        <h4 class="text-xl font-medium mb-4">My Skills</h4>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">JavaScript</span>
-                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">React</span>
-                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Node.js</span>
-                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Express</span>
-                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">MongoDB</span>
-                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">HTML/CSS</span>
-                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">TailwindCSS</span>
-                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Git</span>
-                        </div>
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gray-900 rounded-xl my-10">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold mb-4">About <span class="gradient-text">Me</span></h2>
+            <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-up">
+                <h3 class="text-2xl font-semibold mb-4">Who am I?</h3>
+                <p class="text-gray-400 mb-6">
+                    I am a Fullstack Developer with 5+ years of experience in building applications, performing maintenance, and fixing bugs.
+                </p>
+                <p class="text-gray-400 mb-6">
+                    I can help you with a wide range of digital needs, from company profile websites and business systems to custom applications designed to fit your personal or business requirements.
+                    With a blend of technical expertise and user-centered thinking, I am committed to delivering digital solutions that are reliable, efficient, and easy to use.
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flex items-center">
+                        <i data-feather="mail" class="text-blue-400 mr-2"></i>
+                        <a class="text-gray-300" href="mailto:heryfidiawan07@gmail.com">heryfidiawan07@gmail.com</a>
                     </div>
-
-                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                        <div class="flex items-center">
-                            <i data-feather="mail" class="mr-2 text-gray-600"></i>
-                            <span>john.doe@example.com</span>
+                    <div class="flex items-center">
+                        <i data-feather="message-circle" class="text-blue-400 mr-2"></i>
+                        <a class="text-gray-300" href="https://wa.me/6282213173147">+62 822-1317-3147</a>
+                    </div>
+                </div>
+            </div>
+            <div data-aos="fade-up">
+                <div class="bg-gray-800 p-8 rounded-xl border border-gray-700">
+                    <h3 class="text-xl font-semibold mb-6">Skills</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">PHP</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Laravel</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Codeigniter</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Javascript</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Node JS</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Express JS</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Nest JS</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Adonis JS</h4>
+                            </div>
                         </div>
-                        <div class="flex items-center">
-                            <i data-feather="phone" class="mr-2 text-gray-600"></i>
-                            <span>+1 (555) 123-4567</span>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">React JS</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Vue JS</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Bootstrap</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Tailwind</h4>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">MySQL</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Postgres</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Oracle</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Redis</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Docker</h4>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
+                                <h4 class="font-medium">Git</h4>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,229 +212,221 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 px-4 bg-gray-200">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-4" data-aos="fade-up">My Projects</h2>
-            <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto" data-aos="fade-up">Here are some of my recent projects. Each one was carefully crafted to solve specific problems.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-md project-card transition duration-300" data-aos="fade-up">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                         alt="E-commerce Platform" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">E-commerce Platform</h3>
-                        <p class="text-gray-600 mb-4">A full-featured online store with payment integration, product management, and user accounts.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">React</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Node.js</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">MongoDB</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Stripe API</span>
-                        </div>
-                        <a href="#" class="text-indigo-600 font-medium hover:underline">View Project →</a>
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-10">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold mb-4">My <span class="gradient-text">Projects</span></h2>
+            <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up">
+                <div class="relative h-48 overflow-hidden">
+                    <div class="flex h-full transition-transform duration-300 ease-in-out" id="project1-carousel">
+                        <img src="images/projects/RCTI-ADS.jpg" alt="RCTI-ADS" class="w-full h-full object-cover flex-shrink-0">
+                        <img src="images/projects/RCTI-ADS-2.png" alt="RCTI-ADS" class="w-full h-full object-cover flex-shrink-0">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 right-4 flex space-x-1">
+                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project1-carousel"></button>
+                        <button class="carousel-next w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project1-carousel"></button>
                     </div>
                 </div>
-
-                <!-- Project 2 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-md project-card transition duration-300" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                         alt="Task Management App" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Task Management App</h3>
-                        <p class="text-gray-600 mb-4">A productivity application for teams to collaborate on projects with real-time updates.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Vue.js</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Firebase</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">WebSockets</span>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">RCTI ADS</h3>
+                    <p class="text-gray-400 mb-4">
+                        Advertising platform from RCTI launched specifically for Indonesian MSMEs (Micro, Small, and Medium Enterprises).
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex space-x-2">
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">PHP</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Laravel</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Javascript</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">MySQL</span>
                         </div>
-                        <a href="#" class="text-indigo-600 font-medium hover:underline">View Project →</a>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-md project-card transition duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                         alt="Health Dashboard" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Health Dashboard</h3>
-                        <p class="text-gray-600 mb-4">A data visualization platform for healthcare providers to track patient metrics.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">React</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">D3.js</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Python</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Flask</span>
-                        </div>
-                        <a href="#" class="text-indigo-600 font-medium hover:underline">View Project →</a>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-md project-card transition duration-300" data-aos="fade-up">
-                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                         alt="Social Network" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Social Network</h3>
-                        <p class="text-gray-600 mb-4">A community platform with user profiles, posts, comments, and real-time notifications.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">MERN Stack</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">GraphQL</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Redis</span>
-                        </div>
-                        <a href="#" class="text-indigo-600 font-medium hover:underline">View Project →</a>
-                    </div>
-                </div>
-
-                <!-- Project 5 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-md project-card transition duration-300" data-aos="fade-up" data-aos-delay="100">
-                    <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                         alt="Travel Planner" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Travel Planner</h3>
-                        <p class="text-gray-600 mb-4">An itinerary builder that helps users plan trips with maps, bookings, and recommendations.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Next.js</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Mapbox</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Node.js</span>
-                        </div>
-                        <a href="#" class="text-indigo-600 font-medium hover:underline">View Project →</a>
-                    </div>
-                </div>
-
-                <!-- Project 6 -->
-                <div class="bg-white rounded-lg overflow-hidden shadow-md project-card transition duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-                         alt="Learning Platform" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Learning Platform</h3>
-                        <p class="text-gray-600 mb-4">An online education system with courses, quizzes, progress tracking, and certifications.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Laravel</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">Vue.js</span>
-                            <span class="bg-gray-100 px-2 py-1 rounded-full text-xs">MySQL</span>
-                        </div>
-                        <a href="#" class="text-indigo-600 font-medium hover:underline">View Project →</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 px-4 bg-gray-100">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-16" data-aos="fade-up">Get In Touch</h2>
-            <div class="flex flex-col md:flex-row">
-                <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
-                    <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <i data-feather="mail" class="mr-4 text-indigo-600 mt-1"></i>
-                            <div>
-                                <h4 class="font-medium">Email</h4>
-                                <p class="text-gray-600">john.doe@example.com</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i data-feather="phone" class="mr-4 text-gray-600 mt-1"></i>
-                            <div>
-                                <h4 class="font-medium">Phone</h4>
-                                <p class="text-gray-600">+1 (555) 123-4567</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i data-feather="map-pin" class="mr-4 text-gray-600 mt-1"></i>
-                            <div>
-                                <h4 class="font-medium">Location</h4>
-                                <p class="text-gray-600">San Francisco, CA</p>
-                            </div>
-                        </div>
+            <!-- Project 2 -->
+            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="100">
+                <div class="relative h-48 overflow-hidden">
+                    <div class="flex h-full transition-transform duration-300 ease-in-out" id="project2-carousel">
+                        <img src="images/projects/Mitra-Kerjasama-Nonton-Bareng.jpg" alt="MNC-Nobar" class="w-full h-full object-cover flex-shrink-0">
+                        <img src="images/projects/Mitra-Kerjasama-Nonton-Bareng-Certificate.jpg" alt="MNC-Nobar" class="w-full h-full object-cover flex-shrink-0">
                     </div>
-                    <div class="mt-10">
-                        <h4 class="text-xl font-medium mb-4">Connect With Me</h4>
-                        <div class="flex space-x-4">
-                            <a href="#" class="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition">
-                                <i data-feather="github" class="text-gray-700"></i>
-                            </a>
-                            <a href="#" class="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition">
-                                <i data-feather="linkedin" class="text-gray-700"></i>
-                            </a>
-                            <a href="#" class="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition">
-                                <i data-feather="twitter" class="text-gray-700"></i>
-                            </a>
-                            <a href="#" class="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition">
-                                <i data-feather="instagram" class="text-gray-700"></i>
-                            </a>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 right-4 flex space-x-1">
+                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project2-carousel"></button>
+                        <button class="carousel-next w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project2-carousel"></button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">MNC Certificates Nobar</h3>
+                    <p class="text-gray-400 mb-4">
+                        Web platform for registration, payment, and issuance of official certificates for commercial nobar organizer venues.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex space-x-2">
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">PHP</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Laravel</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Javascript</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">MySQL</span>
                         </div>
                     </div>
                 </div>
-                <div class="md:w-1/2 md:pl-12" data-aos="fade-left">
-                    <h3 class="text-2xl font-semibold mb-6">Send Me a Message</h3>
-                    <form class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-gray-700 mb-2">Name</label>
-                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative h-48 overflow-hidden">
+                    <div class="flex h-full transition-transform duration-300 ease-in-out" id="project3-carousel">
+                        <img src="images/projects/Ticketing-Online.jpg" alt="Scan-Online-Ticket" class="w-full h-full object-cover flex-shrink-0">
+                        <img src="images/projects/Ticketing-Online-2.jpg" alt="Scan-Online-Ticket" class="w-full h-full object-cover flex-shrink-0">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 right-4 flex space-x-1">
+                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project3-carousel"></button>
+                        <button class="carousel-next w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project3-carousel"></button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Online Ticket (QR-Code)</h3>
+                    <p class="text-gray-400 mb-4">
+                        Event registration website with QR code-based e-ticket system for participant validation on site.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex space-x-2">
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">PHP</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Laravel</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Javascript</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">MySQL</span>
                         </div>
-                        <div>
-                            <label for="email" class="block text-gray-700 mb-2">Email</label>
-                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="200">
+                <div class="relative h-48 overflow-hidden">
+                    <div class="flex h-full transition-transform duration-300 ease-in-out" id="project4-carousel">
+                        <img src="images/projects/Node-Client-Script.jpg" alt="Scan-Online-Ticket" class="w-full h-full object-cover flex-shrink-0">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 right-4 flex space-x-1">
+                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project4-carousel"></button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Client Script Automation</h3>
+                    <p class="text-gray-400 mb-4">
+                        Automate advertising reports – TikTok, Meta, Google Ads to Google Sheet.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex space-x-2">
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Node Js</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Meta API</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Tiktok API</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Google API</span>
+                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Googlesheet API</span>
                         </div>
-                        <div>
-                            <label for="subject" class="block text-gray-700 mb-2">Subject</label>
-                            <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        </div>
-                        <div>
-                            <label for="message" class="block text-gray-700 mb-2">Message</label>
-                            <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
-                        </div>
-                        <button type="submit" class="bg-gray-800 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-900 transition w-full md:w-auto">Send Message</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12 px-4">
-        <div class="max-w-6xl mx-auto">
+    <footer class="bg-gray-900 border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
-                    <span class="text-xl font-semibold">DevPortfolio</span>
-                    <p class="text-gray-300 mt-2">Building digital experiences that matter.</p>
+                    <span class="text-xl font-bold gradient-text">PORTFOLIO</span>
+                    <p class="text-gray-400 mt-2">© 2025 Heri Fidiawan. All rights reserved.</p>
                 </div>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-300 hover:text-white transition">
-                        <i data-feather="github"></i>
+                <div class="flex space-x-4 mt-8 justify-center sm:justify-start">
+                    <a href="https://github.com/heryfidiawan07" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
+                        <i data-feather="github" class="text-gray-300 w-5 h-5"></i>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition">
-                        <i data-feather="linkedin"></i>
+                    <a href="www.linkedin.com/in/heri-fidiawan-07" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
+                        <i data-feather="linkedin" class="text-gray-300 w-5 h-5"></i>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition">
-                        <i data-feather="twitter"></i>
+                    <a href="mailto:heryfidiawan07@gmail.com" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
+                        <i data-feather="mail" class="text-gray-300 w-5 h-5"></i>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition">
-                        <i data-feather="instagram"></i>
+                    <a href="https://wa.me/6282213173147" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
+                        <i data-feather="message-circle" class="text-gray-300 w-5 h-5"></i>
                     </a>
                 </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
-                <p>&copy; 2023 John Doe. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Initialize feather icons
         feather.replace();
+
+        // Carousel functionality
+        document.querySelectorAll('.carousel-prev, .carousel-next').forEach(button => {
+            button.addEventListener('click', function() {
+                const target = this.getAttribute('data-target');
+                const carousel = document.getElementById(target);
+                const items = carousel.querySelectorAll('img');
+                const itemWidth = items[0].clientWidth;
+                const currentPosition = parseInt(carousel.style.transform?.replace('translateX(', '').replace('px)', '') || 0);
+                
+                let newPosition;
+                if (this.classList.contains('carousel-prev')) {
+                    newPosition = Math.min(currentPosition + itemWidth, 0);
+                } else {
+                    newPosition = Math.max(currentPosition - itemWidth, -(itemWidth * (items.length - 1)));
+                }
+                
+                carousel.style.transform = `translateX(${newPosition}px)`;
+                
+                // Update button states
+                const prevButtons = document.querySelectorAll(`.carousel-prev[data-target="${target}"]`);
+                const nextButtons = document.querySelectorAll(`.carousel-next[data-target="${target}"]`);
+                
+                prevButtons.forEach(btn => {
+                    btn.style.backgroundColor = newPosition === 0 ? '#9ca3af' : '#e5e7eb';
+                });
+                
+                nextButtons.forEach(btn => {
+                    btn.style.backgroundColor = newPosition === -(itemWidth * (items.length - 1)) ? '#9ca3af' : '#e5e7eb';
+                });
+            });
+        });
+
+        // Initialize carousel positions and button states
+        document.querySelectorAll('[id$="-carousel"]').forEach(carousel => {
+            carousel.style.transform = 'translateX(0px)';
+            const target = carousel.id;
+            const prevButtons = document.querySelectorAll(`.carousel-prev[data-target="${target}"]`);
+            prevButtons.forEach(btn => {
+                btn.style.backgroundColor = '#9ca3af';
+            });
+        });
     </script>
 </body>
 </html>
