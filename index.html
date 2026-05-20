@@ -5,208 +5,301 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | Heri Fidiawan</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        * { scroll-behavior: smooth; }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0a0a0a;
-            color: #f3f4f6;
+            background-color: #060b14;
+            color: #e2e8f0;
         }
+
+        /* Subtle dot-grid background */
+        .bg-grid {
+            background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        /* Glow orbs */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
         .gradient-text {
-            background: linear-gradient(90deg, #a1a1aa, #e5e7eb);
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+        /* Navigation */
+        .nav-blur {
+            background: rgba(6, 11, 20, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        /* .skill-bar {
-            transition: width 1.5s ease-in-out;
-        } */
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 80%; }
+
+        /* Section accent line */
+        .section-line {
+            height: 3px;
+            width: 44px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            border-radius: 2px;
+        }
+
+        /* Social icon buttons */
+        .social-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover {
+            background: rgba(96,165,250,0.12);
+            border-color: rgba(96,165,250,0.35);
+            transform: translateY(-2px);
+        }
+
+        /* Project cards */
+        .project-card {
+            background: linear-gradient(160deg, rgba(14,22,38,0.95), rgba(9,16,30,0.98));
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: transform 0.4s cubic-bezier(0.4,0,0.2,1),
+                        border-color 0.4s ease,
+                        box-shadow 0.4s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(96,165,250,0.3);
+            box-shadow: 0 28px 56px rgba(0,0,0,0.55),
+                        0 0 0 1px rgba(96,165,250,0.08),
+                        inset 0 1px 0 rgba(255,255,255,0.04);
+        }
+
+        /* Skill tags */
+        .skill-tag {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+            transition: all 0.2s ease;
+        }
+        .skill-tag:hover {
+            background: rgba(96,165,250,0.1);
+            border-color: rgba(96,165,250,0.3);
+        }
+
+        /* Tech badges */
+        .tech-badge {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+        }
+
+        /* Carousel track smooth slide */
+        .carousel-track {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        /* Carousel nav arrow buttons */
+        .carousel-arrow {
+            opacity: 0;
+            transition: opacity 0.25s ease, background 0.2s ease;
+        }
+        .carousel-wrapper:hover .carousel-arrow { opacity: 1; }
+
+        /* Profile ring animation */
+        @keyframes slowSpin {
+            to { transform: rotate(360deg); }
+        }
+        .spin-slow { animation: slowSpin 22s linear infinite; }
+
+        /* About card glass */
+        .about-glass {
+            background: linear-gradient(145deg, rgba(14,22,40,0.7), rgba(9,16,30,0.85));
+            border: 1px solid rgba(255,255,255,0.07);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        [data-aos] { pointer-events: none; }
+        [data-aos].aos-animate { pointer-events: auto; }
     </style>
 </head>
 <body class="min-h-screen">
-    <script>AOS.init();</script>
-    <script>const { animate } = anime;</script>
-    
+
     <!-- Navigation -->
-    <nav class="fixed w-full bg-gray-900 bg-opacity-90 backdrop-blur-sm z-50 border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="fixed w-full nav-blur z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-xl font-bold gradient-text">PORTFOLIO</span>
+                <span class="text-lg font-extrabold gradient-text tracking-widest">HF.</span>
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="#about" class="nav-link text-slate-400 hover:text-white px-4 py-2 text-sm font-medium">About</a>
+                    <a href="#projects" class="nav-link text-slate-400 hover:text-white px-4 py-2 text-sm font-medium">Projects</a>
                 </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#about" class="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition duration-300">About</a>
-                        <a href="#projects" class="text-gray-300 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition duration-300">Projects</a>
-                    </div>
-                </div>
-                <div class="md:hidden">
-                    <button id="menu-toggle" class="text-gray-300 hover:text-white focus:outline-none">
-                        <i data-feather="menu"></i>
-                    </button>
-                </div>
+                <button id="menu-toggle" class="md:hidden text-slate-400 hover:text-white p-2 rounded-lg transition">
+                    <i data-feather="menu" class="w-5 h-5"></i>
+                </button>
             </div>
         </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 border-t border-gray-800">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#about" class="text-gray-300 hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium transition duration-300">About</a>
-                <a href="#projects" class="text-gray-300 hover:text-blue-400 block px-3 py-2 rounded-md text-base font-medium transition duration-300">Projects</a>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-white/5">
+            <div class="px-4 py-3 space-y-1">
+                <a href="#about" class="block text-slate-400 hover:text-white px-3 py-2 text-sm font-medium rounded-lg hover:bg-white/5 transition">About</a>
+                <a href="#projects" class="block text-slate-400 hover:text-white px-3 py-2 text-sm font-medium rounded-lg hover:bg-white/5 transition">Projects</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row items-center justify-between">
-            <div class="md:w-1/2 flex justify-center" data-aos="fade-up">
-                <div class="relative">
-                    <div class="w-64 h-64 md:w-80 md:h-80 mb-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full overflow-hidden border-4 border-gray-800 shadow-xl">
-                        <img src="images/fidiawan.jpg" alt="Heri Fidiawan" class="w-full h-full object-cover">
+    <section class="relative min-h-screen flex items-center bg-grid overflow-hidden">
+        <div class="glow-orb w-[500px] h-[500px] bg-blue-600/8 -top-40 -right-40"></div>
+        <div class="glow-orb w-[300px] h-[300px] bg-violet-600/7 bottom-10 -left-20"></div>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full">
+            <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-14">
+
+                <!-- Text -->
+                <div class="md:w-1/2 text-center md:text-left" data-aos="fade-up" data-aos-duration="800">
+                    <p class="text-blue-400 text-xs font-semibold tracking-[0.2em] uppercase mb-4">Fullstack Developer</p>
+                    <h1 class="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold mb-5 leading-tight tracking-tight">
+                        Hi, I'm<br>
+                        <span class="gradient-text">Heri Fidiawan</span>
+                    </h1>
+                    <p class="text-slate-400 text-base md:text-lg leading-relaxed mb-9 max-w-md mx-auto md:mx-0">
+                        Building reliable, efficient, and scalable web applications with 5+ years of fullstack experience.
+                    </p>
+                    <div class="flex items-center gap-3 justify-center md:justify-start">
+                        <a href="https://github.com/heryfidiawan07" target="_blank" rel="noopener noreferrer" class="social-btn p-3 rounded-xl">
+                            <i data-feather="github" class="text-slate-300 w-5 h-5"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/heri-fidiawan-07" target="_blank" rel="noopener noreferrer" class="social-btn p-3 rounded-xl">
+                            <i data-feather="linkedin" class="text-slate-300 w-5 h-5"></i>
+                        </a>
+                        <a href="mailto:heryfidiawan07@gmail.com" class="social-btn p-3 rounded-xl">
+                            <i data-feather="mail" class="text-slate-300 w-5 h-5"></i>
+                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="md:w-1/2 mb-10 md:mb-0 text-center md:text-left" data-aos="fade-up">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">Hi, I'm <span class="gradient-text">Heri Fidiawan</span></h1>
-                <h2 class="text-2xl md:text-3xl font-semibold text-gray-400 mb-4">Fullstack Developer</h2>
-                <div class="flex space-x-4 justify-center md:justify-start">
-                    <a href="https://github.com/heryfidiawan07" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
-                        <i data-feather="github" class="text-gray-300 w-5 h-5"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/heri-fidiawan-07" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
-                        <i data-feather="linkedin" class="text-gray-300 w-5 h-5"></i>
-                    </a>
-                    <a href="mailto:heryfidiawan07@gmail.com" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
-                        <i data-feather="mail" class="text-gray-300 w-5 h-5"></i>
-                    </a>
-                    <!-- <a href="https://wa.me/6282213173147" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
-                        <i data-feather="message-circle" class="text-gray-300 w-5 h-5"></i>
-                    </a> -->
+
+                <!-- Photo -->
+                <div class="md:w-1/2 flex justify-center" data-aos="fade-up" data-aos-duration="800" data-aos-delay="150">
+                    <div class="relative">
+                        <!-- Animated dashed ring -->
+                        <div class="absolute -inset-4 rounded-full border border-dashed border-blue-500/25 spin-slow"></div>
+                        <!-- Soft glow ring -->
+                        <div class="absolute -inset-1 rounded-full bg-gradient-to-br from-blue-500/20 to-violet-500/20 blur-lg"></div>
+                        <!-- Photo -->
+                        <div class="relative w-52 h-52 md:w-64 md:h-64 rounded-full overflow-hidden ring-2 ring-blue-500/20 ring-offset-4 ring-offset-[#060b14] shadow-2xl">
+                            <img src="images/fidiawan.jpg" alt="Heri Fidiawan" class="w-full h-full object-cover">
+                        </div>
+                    </div>
                 </div>
+
             </div>
+        </div>
+
+        <!-- Scroll hint -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 z-10">
+            <span class="text-[10px] text-slate-400 tracking-[0.25em] uppercase">Scroll</span>
+            <div class="w-px h-8 bg-gradient-to-b from-blue-400 to-transparent"></div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gray-900 rounded-xl my-10">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold mb-4">About <span class="gradient-text">Me</span></h2>
-            <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
-        </div>
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-up">
-                <h3 class="text-2xl font-semibold mb-4">Who am I?</h3>
-                <p class="text-gray-400 mb-6">
-                    I am a Fullstack Developer with 5+ years of experience in building applications, performing maintenance, and fixing bugs.
-                </p>
-                <p class="text-gray-400 mb-6">
-                    I can help you with a wide range of digital needs, from company profile websites and business systems to custom applications designed to fit your personal or business requirements.
-                    With a blend of technical expertise and user-centered thinking, I am committed to delivering digital solutions that are reliable, efficient, and easy to use.
-                </p>
-                <div class="flex space-x-4 mt-8 justify-center sm:justify-start">
-                    <a href="https://github.com/heryfidiawan07" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
-                        <i data-feather="github" class="text-gray-300 w-5 h-5"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/heri-fidiawan-07" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
-                        <i data-feather="linkedin" class="text-gray-300 w-5 h-5"></i>
-                    </a>
-                    <a href="mailto:heryfidiawan07@gmail.com" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
-                        <i data-feather="mail" class="text-gray-300 w-5 h-5"></i>
-                    </a>
-                    <!-- <a href="https://wa.me/6282213173147" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
-                        <i data-feather="message-circle" class="text-gray-300 w-5 h-5"></i>
-                    </a> -->
-                </div>
+    <section id="about" class="py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <p class="text-blue-400 text-xs font-semibold tracking-[0.2em] uppercase mb-3">Get to know me</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">About <span class="gradient-text">Me</span></h2>
+                <div class="section-line mx-auto"></div>
             </div>
-            <div data-aos="fade-up">
-                <div class="bg-gray-800 p-8 rounded-xl border border-gray-700">
-                    <h3 class="text-xl font-semibold mb-6">Skills</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                        <div class="space-y-2">
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">PHP</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Laravel</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Codeigniter</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Javascript</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Node JS</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Express JS</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Nest JS</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Adonis JS</h4>
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">React JS</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Vue JS</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Bootstrap</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Tailwind</h4>
+
+            <div class="grid md:grid-cols-2 gap-10 items-start">
+                <!-- Bio -->
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Who am I?</h3>
+                    <p class="text-slate-400 leading-relaxed mb-5">
+                        I am a Fullstack Developer with 5+ years of experience building web applications, performing maintenance, and resolving bugs across complex systems.
+                    </p>
+                    <p class="text-slate-400 leading-relaxed mb-8">
+                        I can help with a wide range of digital needs — from company profile websites and business management systems to custom applications tailored to your specific requirements. With a blend of technical expertise and user-centered thinking, I deliver solutions that are reliable, efficient, and easy to use.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <a href="https://github.com/heryfidiawan07" target="_blank" rel="noopener noreferrer" class="social-btn p-3 rounded-xl">
+                            <i data-feather="github" class="text-slate-300 w-5 h-5"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/heri-fidiawan-07" target="_blank" rel="noopener noreferrer" class="social-btn p-3 rounded-xl">
+                            <i data-feather="linkedin" class="text-slate-300 w-5 h-5"></i>
+                        </a>
+                        <a href="mailto:heryfidiawan07@gmail.com" class="social-btn p-3 rounded-xl">
+                            <i data-feather="mail" class="text-slate-300 w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="about-glass p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-400 inline-block"></span>
+                        Technical Skills
+                    </h3>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div>
+                            <p class="text-[10px] text-slate-500 uppercase tracking-widest mb-3 font-semibold">Backend</p>
+                            <div class="space-y-2">
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">PHP</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">Laravel</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">CodeIgniter</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">Node.js</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">Express.js</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">Nest.js</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">Adonis.js</div>
                             </div>
                         </div>
-                        <div class="space-y-2">
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">MySQL</h4>
+                        <div>
+                            <p class="text-[10px] text-slate-500 uppercase tracking-widest mb-3 font-semibold">Frontend</p>
+                            <div class="space-y-2">
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">React.js</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">Vue.js</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">JavaScript</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">Bootstrap</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">Tailwind</div>
                             </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Postgres</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Oracle</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Redis</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Docker</h4>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 bg-blue-600 rounded-full mr-3"></div>
-                                <h4 class="font-medium">Git</h4>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-500 uppercase tracking-widest mb-3 font-semibold">Infra</p>
+                            <div class="space-y-2">
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">MySQL</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">PostgreSQL</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">Oracle</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">Redis</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">Docker</div>
+                                <div class="skill-tag px-3 py-1.5 rounded-lg text-sm text-slate-300 font-medium">Git</div>
                             </div>
                         </div>
                     </div>
@@ -216,446 +309,440 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-10">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold mb-4">My <span class="gradient-text">Projects</span></h2>
-            <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
-        </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up">
-                <div class="relative h-48 overflow-hidden carousel">
-                    <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out" id="project1-carousel">
-                        <img src="images/projects/RCTI-ADS.jpg" alt="RCTI-ADS" class="w-full h-full object-cover flex-shrink-0">
-                        <img src="images/projects/RCTI-ADS-2.jpg" alt="RCTI-ADS" class="w-full h-full object-cover flex-shrink-0">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 right-4 flex space-x-1">
-                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project1-carousel"></button>
-                        <button class="carousel-next w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project1-carousel"></button>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">RCTI ADS</h3>
-                    <p class="text-gray-400 mb-4">
-                        Advertising platform from RCTI launched specifically for Indonesian MSMEs (Micro, Small, and Medium Enterprises).
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">PHP</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Laravel</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Javascript</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Vue Js</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">MySQL</span>
-                        </div>
-                    </div>
-                </div>
+    <section id="projects" class="py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <p class="text-blue-400 text-xs font-semibold tracking-[0.2em] uppercase mb-3">What I've built</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Projects</span></h2>
+                <div class="section-line mx-auto"></div>
             </div>
 
-            <!-- Project 2 -->
-            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="100">
-                <div class="relative h-48 overflow-hidden carousel">
-                    <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out" id="project2-carousel">
-                        <img src="images/projects/Mitra-Kerjasama-Nonton-Bareng.jpg" alt="MNC-Nobar" class="w-full h-full object-cover flex-shrink-0">
-                        <img src="images/projects/Mitra-Kerjasama-Nonton-Bareng-Certificate.jpg" alt="MNC-Nobar" class="w-full h-full object-cover flex-shrink-0">
-                    </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 right-4 flex space-x-1">
-                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project2-carousel"></button>
-                        <button class="carousel-next w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project2-carousel"></button>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">MNC Certificates Nobar</h3>
-                    <p class="text-gray-400 mb-4">
-                        Web platform for registration, payment, and issuance of official certificates for commercial nobar organizer venues.
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">PHP</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Laravel</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Javascript</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">MySQL</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Googlesheet API</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <!-- SOSMED -->
-            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative h-48 overflow-hidden carousel">
-                    <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out" id="sosmed-carousel">
-                        <img src="images/projects/Sosmed-Analytics-1.jpg" alt="Social Media Analytics" class="w-full h-full object-cover flex-shrink-0">
-                        <img src="images/projects/Sosmed-Analytics-2.jpg" alt="Social Media Analytics" class="w-full h-full object-cover flex-shrink-0">
+                <!-- RCTI ADS — 2 images -->
+                <div class="project-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="0">
+                    <div class="relative h-48 overflow-hidden carousel-wrapper">
+                        <div class="carousel-track flex h-full">
+                            <img src="images/projects/RCTI-ADS.jpg"   alt="RCTI ADS" class="min-w-full h-full object-cover flex-shrink-0">
+                            <img src="images/projects/RCTI-ADS-2.jpg" alt="RCTI ADS" class="min-w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
+                        <button class="carousel-arrow carousel-btn-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center text-white z-10">
+                            <i data-feather="chevron-left" class="w-4 h-4"></i>
+                        </button>
+                        <button class="carousel-arrow carousel-btn-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center text-white z-10">
+                            <i data-feather="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                        <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10"></div>
                     </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 right-4 flex space-x-1">
-                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="sosmed-carousel"></button>
-                        <button class="carousel-next w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="sosmed-carousel"></button>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">Social Media Analytics</h3>
-                    <p class="text-gray-400 mb-4">
-                        Process of collecting, analyzing, and interpreting data from various social media platforms to understand content performance, audience behavior, market trends, and the effectiveness of digital marketing strategies.
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">PHP</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Laravel</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Javascript</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">MySQL</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Youtube API</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Scrap</span>
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold mb-2 text-white">RCTI ADS</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            An advertising platform by RCTI, designed specifically for Indonesian MSMEs (Micro, Small, and Medium Enterprises).
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">PHP</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Laravel</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">JavaScript</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Bootstrap</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Vue.js</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">MySQL</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project 3 -->
-            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative h-48 overflow-hidden carousel">
-                    <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out" id="project3-carousel">
-                        <img src="images/projects/Ticketing-Online-1.png" alt="Scan-Online-Ticket" class="w-full h-full object-cover flex-shrink-0">
-                        <img src="images/projects/Ticketing-Online-2.jpg" alt="Scan-Online-Ticket" class="w-full h-full object-cover flex-shrink-0">
-                        <img src="images/projects/Ticketing-Online-3.jpg" alt="Scan-Online-Ticket" class="w-full h-full object-cover flex-shrink-0">
+                <!-- MNC Certificates Watch Party — 2 images -->
+                <div class="project-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative h-48 overflow-hidden carousel-wrapper">
+                        <div class="carousel-track flex h-full">
+                            <img src="images/projects/Mitra-Kerjasama-Nonton-Bareng.jpg"             alt="MNC Nobar" class="min-w-full h-full object-cover flex-shrink-0">
+                            <img src="images/projects/Mitra-Kerjasama-Nonton-Bareng-Certificate.jpg" alt="MNC Nobar Certificate" class="min-w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
+                        <button class="carousel-arrow carousel-btn-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center text-white z-10">
+                            <i data-feather="chevron-left" class="w-4 h-4"></i>
+                        </button>
+                        <button class="carousel-arrow carousel-btn-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center text-white z-10">
+                            <i data-feather="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                        <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10"></div>
                     </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 right-4 flex space-x-1">
-                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project3-carousel"></button>
-                        <button class="carousel-next w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project3-carousel"></button>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">Online Ticket (QR-Code)</h3>
-                    <p class="text-gray-400 mb-4">
-                        Event registration website with QR code-based e-ticket system for participant validation on site.
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">PHP</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Laravel</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Javascript</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">MySQL</span>
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold mb-2 text-white">MNC Certificates — Watch Party</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            A web platform for registration, payment, and issuance of official certificates for commercial watch party organizer venues.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">PHP</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Laravel</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">JavaScript</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Bootstrap</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">MySQL</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Google Sheets API</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project 4 -->
-            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative h-48 overflow-hidden carousel">
-                    <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out" id="project4-carousel">
-                        <img src="images/projects/Node-Client-Script.jpg" alt="Node-Client-Script" class="w-full h-full object-cover flex-shrink-0">
+                <!-- Social Media Analytics — 2 images -->
+                <div class="project-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative h-48 overflow-hidden carousel-wrapper">
+                        <div class="carousel-track flex h-full">
+                            <img src="images/projects/Sosmed-Analytics-1.jpg" alt="Social Media Analytics" class="min-w-full h-full object-cover flex-shrink-0">
+                            <img src="images/projects/Sosmed-Analytics-2.jpg" alt="Social Media Analytics" class="min-w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
+                        <button class="carousel-arrow carousel-btn-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center text-white z-10">
+                            <i data-feather="chevron-left" class="w-4 h-4"></i>
+                        </button>
+                        <button class="carousel-arrow carousel-btn-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center text-white z-10">
+                            <i data-feather="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                        <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10"></div>
                     </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 right-4 flex space-x-1">
-                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project4-carousel"></button>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">Client Script Automation</h3>
-                    <p class="text-gray-400 mb-4">
-                        Automate advertising reports – TikTok, Meta, Google Ads to Google Sheet.
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Node Js</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Meta API</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Tiktok API</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Google API</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Googlesheet API</span>
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold mb-2 text-white">Social Media Analytics</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            A platform for collecting, analyzing, and interpreting data from social media channels to measure content performance, audience behavior, and the effectiveness of digital marketing strategies.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">PHP</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Laravel</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">JavaScript</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Bootstrap</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">MySQL</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">YouTube API</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Web Scraping</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project 5 -->
-            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative h-48 overflow-hidden carousel">
-                    <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out" id="project5-carousel">
-                        <img src="images/projects/STID.jpg" alt="STID (Single Truck Identification)" class="w-full h-full object-cover flex-shrink-0">
+                <!-- Online Ticket QR Code — 3 images -->
+                <div class="project-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="0">
+                    <div class="relative h-48 overflow-hidden carousel-wrapper">
+                        <div class="carousel-track flex h-full">
+                            <img src="images/projects/Ticketing-Online-1.png" alt="Online Ticket" class="min-w-full h-full object-cover flex-shrink-0">
+                            <img src="images/projects/Ticketing-Online-2.jpg" alt="Online Ticket" class="min-w-full h-full object-cover flex-shrink-0">
+                            <img src="images/projects/Ticketing-Online-3.jpg" alt="Online Ticket" class="min-w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
+                        <button class="carousel-arrow carousel-btn-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center text-white z-10">
+                            <i data-feather="chevron-left" class="w-4 h-4"></i>
+                        </button>
+                        <button class="carousel-arrow carousel-btn-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center text-white z-10">
+                            <i data-feather="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                        <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10"></div>
                     </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 right-4 flex space-x-1">
-                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project5-carousel"></button>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">STID (Single Truck Identification)</h3>
-                    <p class="text-gray-400 mb-4">
-                        System truck identification that uses a single, electronically linked card to record and monitor every truck entering and leaving the port.
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">PHP</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Codeigniter</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">MySQL</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Redis</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Node JS</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Nest JS</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Rest API</span>
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold mb-2 text-white">Online Ticket (QR Code)</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            An event registration website with a QR code-based e-ticket system for on-site participant validation.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">PHP</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Laravel</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">JavaScript</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Bootstrap</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">MySQL</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project 6 -->
-            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative h-48 overflow-hidden carousel">
-                    <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out" id="project6-carousel">
-                        <img src="images/projects/SiMon-TKBM.jpg" alt="SIMON TKBM" class="w-full h-full object-cover flex-shrink-0">
+                <!-- Client Script Automation — 1 image -->
+                <div class="project-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative h-48 overflow-hidden carousel-wrapper">
+                        <div class="carousel-track flex h-full">
+                            <img src="images/projects/Node-Client-Script.jpg" alt="Client Script Automation" class="min-w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
+                        <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10"></div>
                     </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 right-4 flex space-x-1">
-                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project6-carousel"></button>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">SIMON TKBM</h3>
-                    <p class="text-gray-400 mb-4">
-                        Electronic system application for recording workforce data within the Port area.
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">PHP</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Laravel</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">MySQL</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Rest API</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">HikVision</span>
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold mb-2 text-white">Client Script Automation</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            Automates advertising reports from TikTok, Meta, and Google Ads, pushing data directly to Google Sheets.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Node.js</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Meta API</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">TikTok API</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Google API</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Google Sheets API</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project 7 -->
-            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative h-48 overflow-hidden carousel">
-                    <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out" id="project7-carousel">
-                        <img src="images/projects/Simpanda-login.jpg" alt="SIMPANDA" class="w-full h-full object-cover flex-shrink-0">
-                        <img src="images/projects/Simpanda.jpg" alt="SIMPANDA" class="w-full h-full object-cover flex-shrink-0">
+                <!-- STID — 1 image -->
+                <div class="project-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative h-48 overflow-hidden carousel-wrapper">
+                        <div class="carousel-track flex h-full">
+                            <img src="images/projects/STID.jpg" alt="STID Single Truck Identification" class="min-w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
+                        <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10"></div>
                     </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 right-4 flex space-x-1">
-                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project7-carousel"></button>
-                        <button class="carousel-next w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project7-carousel"></button>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">SIMPANDA</h3>
-                    <p class="text-gray-400 mb-4">
-                        The system used to simplify and speed up the service process at ports in Indonesia, which is an abbreviation of the Transportation Data Self-Service System.
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Node Js</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Express JS</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Postgres</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">React JS</span>
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold mb-2 text-white">STID — Single Truck Identification</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            A truck identification system using a single electronically linked card to record and monitor all truck entries and exits at the port.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">PHP</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">CodeIgniter</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Bootstrap</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">MySQL</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Redis</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Node.js</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Nest.js</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">REST API</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project 8 -->
-            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative h-48 overflow-hidden carousel">
-                    <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out" id="project8-carousel">
-                        <img src="images/projects/Dashboard-Gatepass.jpg" alt="Dashboard-Gatepass" class="w-full h-full object-cover flex-shrink-0">
+                <!-- SIMON TKBM — 1 image -->
+                <div class="project-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="0">
+                    <div class="relative h-48 overflow-hidden carousel-wrapper">
+                        <div class="carousel-track flex h-full">
+                            <img src="images/projects/SiMon-TKBM.jpg" alt="SIMON TKBM" class="min-w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
+                        <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10"></div>
                     </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 right-4 flex space-x-1">
-                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project8-carousel"></button>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">Dashboard Gatepass</h3>
-                    <p class="text-gray-400 mb-4">
-                        Visual interface that displays data and statistics regarding visitor or vehicle entry and exit activities, which are managed through a gatepass management system.
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">PHP</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Codeigniter</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">MySQL</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Rest API</span>
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold mb-2 text-white">SIMON TKBM</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            An electronic system for recording and managing port workforce data, with biometric integration for attendance and identity verification.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">PHP</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Laravel</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Bootstrap</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">MySQL</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">REST API</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">HikVision</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project 9 -->
-            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative h-48 overflow-hidden carousel">
-                    <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out" id="project9-carousel">
-                        <img src="images/projects/WBS.jpg" alt="Whistleblowing System" class="w-full h-full object-cover flex-shrink-0">
+                <!-- SIMPANDA — 2 images -->
+                <div class="project-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative h-48 overflow-hidden carousel-wrapper">
+                        <div class="carousel-track flex h-full">
+                            <img src="images/projects/Simpanda-login.jpg" alt="SIMPANDA Login"     class="min-w-full h-full object-cover flex-shrink-0">
+                            <img src="images/projects/Simpanda.jpg"       alt="SIMPANDA Dashboard" class="min-w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
+                        <button class="carousel-arrow carousel-btn-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center text-white z-10">
+                            <i data-feather="chevron-left" class="w-4 h-4"></i>
+                        </button>
+                        <button class="carousel-arrow carousel-btn-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm flex items-center justify-center text-white z-10">
+                            <i data-feather="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                        <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10"></div>
                     </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 right-4 flex space-x-1">
-                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project9-carousel"></button>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">Whistleblowing System</h3>
-                    <p class="text-gray-400 mb-4">
-                        Reporting system for suspected violations or fraud within an organization to maintain integrity and accountability.
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">PHP</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Laravel</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">MySQL</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">JQuery</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Socket IO</span>
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold mb-2 text-white">SIMPANDA</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            A self-service transportation data system designed to streamline and accelerate service processes at ports across Indonesia.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Node.js</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Express.js</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Bootstrap</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">PostgreSQL</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">React.js</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Project 10 -->
-            <div class="project-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700 transition duration-300 hover:border-blue-500" data-aos="fade-up" data-aos-delay="200">
-                <div class="relative h-48 overflow-hidden carousel">
-                    <div class="carousel-track flex h-full transition-transform duration-300 ease-in-out" id="project10-carousel">
-                        <img src="images/projects/E-Library-Ap1.jpg" alt="E-Library" class="w-full h-full object-cover flex-shrink-0">
+                <!-- Dashboard Gatepass — 1 image -->
+                <div class="project-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative h-48 overflow-hidden carousel-wrapper">
+                        <div class="carousel-track flex h-full">
+                            <img src="images/projects/Dashboard-Gatepass.jpg" alt="Dashboard Gatepass" class="min-w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
+                        <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10"></div>
                     </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
-                    <div class="absolute bottom-4 right-4 flex space-x-1">
-                        <button class="carousel-prev w-2 h-2 rounded-full bg-gray-400 hover:bg-gray-200" data-target="project10-carousel"></button>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">E-Library</h3>
-                    <p class="text-gray-400 mb-4">
-                        Digital library or electronic library that collects resources in digital format such as books, journals and images.
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">PHP</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Laravel</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">Bootstrap</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">MySQL</span>
-                            <span class="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">JQuery</span>
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold mb-2 text-white">Dashboard Gatepass</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            A visual dashboard displaying real-time statistics on visitor and vehicle entry/exit activities managed through a gatepass system.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">PHP</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">CodeIgniter</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Bootstrap</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">MySQL</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">REST API</span>
                         </div>
                     </div>
                 </div>
+
+                <!-- Whistleblowing System — 1 image -->
+                <div class="project-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="0">
+                    <div class="relative h-48 overflow-hidden carousel-wrapper">
+                        <div class="carousel-track flex h-full">
+                            <img src="images/projects/WBS.jpg" alt="Whistleblowing System" class="min-w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
+                        <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold mb-2 text-white">Whistleblowing System</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            A secure reporting platform for suspected violations or fraud within an organization, designed to uphold integrity and accountability.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">PHP</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Laravel</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Bootstrap</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">MySQL</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">jQuery</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Socket.IO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-Library — 1 image -->
+                <div class="project-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative h-48 overflow-hidden carousel-wrapper">
+                        <div class="carousel-track flex h-full">
+                            <img src="images/projects/E-Library-Ap1.jpg" alt="E-Library" class="min-w-full h-full object-cover flex-shrink-0">
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
+                        <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10"></div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-base font-semibold mb-2 text-white">E-Library</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                            A digital library platform that aggregates resources in digital format, including books, journals, and images.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">PHP</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Laravel</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">Bootstrap</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">MySQL</span>
+                            <span class="tech-badge text-xs text-slate-400 px-2 py-0.5 rounded-md">jQuery</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <span class="text-xl font-bold gradient-text">PORTFOLIO</span>
-                    <p class="text-gray-400 mt-2">© 2025 Heri Fidiawan. All rights reserved.</p>
+    <footer class="border-t border-white/5 py-12 mt-6">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div>
+                    <span class="text-lg font-extrabold gradient-text tracking-widest">HF.</span>
+                    <p class="text-slate-500 text-sm mt-1">© 2025 Heri Fidiawan. All rights reserved.</p>
                 </div>
-                <div class="flex space-x-4 mt-8 justify-center sm:justify-start">
-                    <a href="https://github.com/heryfidiawan07" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
-                        <i data-feather="github" class="text-gray-300 w-5 h-5"></i>
+                <div class="flex items-center gap-3">
+                    <a href="https://github.com/heryfidiawan07" target="_blank" rel="noopener noreferrer" class="social-btn p-3 rounded-xl">
+                        <i data-feather="github" class="text-slate-300 w-5 h-5"></i>
                     </a>
-                    <a href="https://linkedin.com/in/heri-fidiawan-07" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
-                        <i data-feather="linkedin" class="text-gray-300 w-5 h-5"></i>
+                    <a href="https://linkedin.com/in/heri-fidiawan-07" target="_blank" rel="noopener noreferrer" class="social-btn p-3 rounded-xl">
+                        <i data-feather="linkedin" class="text-slate-300 w-5 h-5"></i>
                     </a>
-                    <a href="mailto:heryfidiawan07@gmail.com" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
-                        <i data-feather="mail" class="text-gray-300 w-5 h-5"></i>
+                    <a href="mailto:heryfidiawan07@gmail.com" class="social-btn p-3 rounded-xl">
+                        <i data-feather="mail" class="text-slate-300 w-5 h-5"></i>
                     </a>
-                    <!-- <a href="https://wa.me/6282213173147" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
-                        <i data-feather="message-circle" class="text-gray-300 w-5 h-5"></i>
-                    </a> -->
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        document.getElementById('menu-toggle').addEventListener('click', function() {
+        // AOS
+        AOS.init({ duration: 700, once: true, offset: 50 });
+
+        // Feather icons
+        feather.replace();
+
+        // Mobile menu
+        document.getElementById('menu-toggle').addEventListener('click', function () {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
 
-        // Smooth scrolling for navigation links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu if open
-                document.getElementById('mobile-menu').classList.add('hidden');
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
             });
         });
 
-        // Initialize feather icons
-        feather.replace();
+        // ── Unified Carousel System ──────────────────────────────────────────
+        document.querySelectorAll('.carousel-wrapper').forEach(wrapper => {
+            const track = wrapper.querySelector('.carousel-track');
+            if (!track) return;
 
-        document.querySelectorAll(".carousel").forEach(carousel => {
-            const track = carousel.querySelector(".carousel-track");
-            const slides = track.children;
-            let index = 0;
+            const slides = Array.from(track.children);
+            const count  = slides.length;
+            let current  = 0;
+            let timer    = null;
 
-            function showSlide(i) {
-                index = (i + slides.length) % slides.length;
-                track.style.transform = `translateX(-${index * 100}%)`;
+            const dotsEl  = wrapper.querySelector('.carousel-dots');
+            const prevBtn = wrapper.querySelector('.carousel-btn-prev');
+            const nextBtn = wrapper.querySelector('.carousel-btn-next');
+
+            // Build dot indicators (only for multi-image carousels)
+            if (dotsEl && count > 1) {
+                slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                    applyDotStyle(dot, i === 0);
+                    dot.addEventListener('click', () => { goTo(i); resetTimer(); });
+                    dotsEl.appendChild(dot);
+                });
             }
 
-            // auto slide tiap 3 detik
-            setInterval(() => {
-                showSlide(index + 1);
-            }, 3000);
-        });
+            function applyDotStyle(dot, active) {
+                dot.style.cssText = [
+                    'height:5px',
+                    'border-radius:3px',
+                    'border:none',
+                    'cursor:pointer',
+                    'padding:0',
+                    'transition:all 0.35s ease',
+                    active ? 'width:18px;background:rgba(255,255,255,0.9)'
+                           : 'width:5px;background:rgba(255,255,255,0.3)'
+                ].join(';');
+            }
 
-        // Carousel functionality
-        document.querySelectorAll('.carousel-prev, .carousel-next').forEach(button => {
-            button.addEventListener('click', function() {
-                const target = this.getAttribute('data-target');
-                const carousel = document.getElementById(target);
-                const items = carousel.querySelectorAll('img');
-                const itemWidth = items[0].clientWidth;
-                const currentPosition = parseInt(carousel.style.transform?.replace('translateX(', '').replace('px)', '') || 0);
-                
-                let newPosition;
-                if (this.classList.contains('carousel-prev')) {
-                    newPosition = Math.min(currentPosition + itemWidth, 0);
-                } else {
-                    newPosition = Math.max(currentPosition - itemWidth, -(itemWidth * (items.length - 1)));
-                }
-                
-                carousel.style.transform = `translateX(${newPosition}px)`;
-                
-                // Update button states
-                const prevButtons = document.querySelectorAll(`.carousel-prev[data-target="${target}"]`);
-                const nextButtons = document.querySelectorAll(`.carousel-next[data-target="${target}"]`);
-                
-                prevButtons.forEach(btn => {
-                    btn.style.backgroundColor = newPosition === 0 ? '#9ca3af' : '#e5e7eb';
+            function updateDots() {
+                if (!dotsEl) return;
+                dotsEl.querySelectorAll('button').forEach((dot, i) => {
+                    applyDotStyle(dot, i === current);
                 });
-                
-                nextButtons.forEach(btn => {
-                    btn.style.backgroundColor = newPosition === -(itemWidth * (items.length - 1)) ? '#9ca3af' : '#e5e7eb';
-                });
-            });
-        });
+            }
 
-        // Initialize carousel positions and button states
-        document.querySelectorAll('[id$="-carousel"]').forEach(carousel => {
-            carousel.style.transform = 'translateX(0px)';
-            const target = carousel.id;
-            const prevButtons = document.querySelectorAll(`.carousel-prev[data-target="${target}"]`);
-            prevButtons.forEach(btn => {
-                btn.style.backgroundColor = '#9ca3af';
-            });
+            function goTo(i) {
+                current = ((i % count) + count) % count;
+                track.style.transform = `translateX(-${current * 100}%)`;
+                updateDots();
+            }
+
+            function startTimer() {
+                if (count > 1) timer = setInterval(() => goTo(current + 1), 4000);
+            }
+
+            function resetTimer() {
+                clearInterval(timer);
+                startTimer();
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', () => { goTo(current - 1); resetTimer(); });
+            if (nextBtn) nextBtn.addEventListener('click', () => { goTo(current + 1); resetTimer(); });
+
+            startTimer();
         });
     </script>
 </body>
